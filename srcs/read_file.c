@@ -1,18 +1,17 @@
 #include "../includes/fdf.h"
 
-int	ft_wdcounter(int c, char *str)
+int	ft_wdcounter(char c, char *str)
 {
 	int	n;
 
 	n = 0;
-	printf("[%s]\n", str);
 	while (*str)
 	{
-		if (*str != c)
+		if (*str != c && *str)
 			n++;
-		while (*str != c)
+		while (*str != c && *str)
 			str++;
-		while (*str == c)
+		while (*str == c && *str)
 			str++;
 	}
 	return (n);
@@ -24,7 +23,7 @@ int	get_height(char *file_name)
 	int		fd;
 	int		height;
 
-	fd = open(file_name, O_RDONLY, 0);
+	fd = open(file_name, 0, O_RDONLY);
 	height = 0;
 	while (get_next_line(fd, &line))
 	{
@@ -41,26 +40,27 @@ int	get_width(char *file_name)
 	int		fd;
 	char	*line;
 
-	fd = open(file_name, O_RDONLY, 0);
+	fd = open(file_name, 0, O_RDONLY);
 	get_next_line(fd, &line);
-	// width = ft_wdcounter(' ', line);
-	width = 19;
+	printf("get_width:  %s\n", line);
+	width = ft_wdcounter(' ', line);
 	free(line);
+	while (get_next_line(fd, &line))
+		free(line);
 	close(fd);
 	return (width);
 }
 
-void	fill_matrix(int *z_line, char *line)
+void	fill_matrix(int *z_line, char *line, int width)
 {
 	char	**nums;
 	int		i;
 
 	i = 0;
 	nums = ft_split(line, ' ');
-	while (nums[i])
+	while (i != width)
 	{
 		z_line[i] = (int)ft_atoi(nums[i]);
-		// printf("%d  -> %d\n", (int)ft_atoi(nums[i]), z_line[i]);
 		free(nums[i]);
 		i++;
 	}
@@ -76,19 +76,24 @@ void	read_file(char *file_name, fdf *data)
 	i = 0;
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
+	// data->height = 11;
+	// data->width = 19;
 	printf("h: %d   w: %d\n", data->height, data->width);
-	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
-	while (i <= data->height)
-		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
-	fd = open(file_name, O_RDONLY, 0);
+	// data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
+	// while (i <= data->height)
+	// 	data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
+	fd = open(file_name, 0, O_RDONLY);
+	// get_next_line(fd, &line);
+	// printf("gnl: %s\n", line);
+	line = NULL;
 	i = 0;
-	printf("here\n");
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line);
+		printf("line: %s\n", line);//////////
+		// fill_matrix(data->z_matrix[i], line, data->width);
 		free(line);
 		i++;
 	}
 	close(fd);
-	data->z_matrix[i] = NULL;
+	// data->z_matrix[i] = NULL;
 }

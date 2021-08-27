@@ -25,8 +25,8 @@ float	mod(float i)
 void	isometric(float *x, float *y, float z)
 {
 	printf("(x, y, z) = (%f, %f, %f)\n", *x, *y, z);
-	*x = (*x - *y) * cos(0.8) + 100;
-	*y = (*x + *y) * sin(0.8) - z + 100;
+	*x = (*x - *y) * cos(0.8);
+	*y = (*x + *y) * sin(0.8) - z;
 }
 
 void	bresenham(float x, float y, float x1, float y1, fdf *data)
