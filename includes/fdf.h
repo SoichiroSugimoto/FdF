@@ -13,7 +13,22 @@
 # include <stdio.h>
 # include <math.h>
 
-typedef struct	fdf
+# define WIDTH 700 * 3 / 2
+# define HEIGHT 700
+
+int	cnt;
+typedef struct s_terminal
+{
+	int	x;
+	int	y;
+}					t_terminal;
+
+typedef struct			s_point
+{
+	float					x;
+	float					y;
+}						t_point;
+typedef struct	s_fdf
 {
 	int		width;
 	int		height;
@@ -22,11 +37,19 @@ typedef struct	fdf
 	int		color;
 	void	*mlx_ptr;
 	void	*win_ptr;
-}			fdf;
+}			t_fdf;
 
-void	read_file(char *file_name, fdf *data);
-void	two_dim_free(int **buf);
-// void	bresenham(float x, float y, float x1, float y1, fdf *data);
-// void	draw(fdf *data);
+void		read_file(char *file_name, t_fdf *data);
+void		two_dim_free(int **buf);
+void		bresenham(float x, float y, float x1, float y1, t_fdf *data);
+void		draw(t_fdf *data);
+int			get_max(int a, int b);
+void		set_color(t_fdf *data, int z);
+float		mod(float i);
+void		zoom(float *x, float *y, float *x1, float *y1, t_fdf *data);
+void		isometric2(float *x, float *y);
+void		replace_point(float *x, float *y, t_fdf *data);
+void		bresen_2nd(float x, float y, float x1, float y1, t_terminal *point, t_fdf *data);
+t_terminal	get_terminal(t_fdf *data);
 
 #endif

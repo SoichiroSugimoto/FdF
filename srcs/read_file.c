@@ -42,7 +42,7 @@ int	get_width(char *file_name)
 
 	fd = open(file_name, 0, O_RDONLY);
 	get_next_line(fd, &line);
-	printf("get_width:  %s\n", line);
+	// printf("get_width:  %s\n", line);
 	width = ft_wdcounter(' ', line);
 	free(line);
 	while (get_next_line(fd, &line))
@@ -67,7 +67,7 @@ void	fill_matrix(int *z_line, char *line, int width)
 	free(nums);
 }
 
-void	read_file(char *file_name, fdf *data)
+void	read_file(char *file_name, t_fdf *data)
 {
 	int		fd;
 	char	*line;
@@ -76,24 +76,20 @@ void	read_file(char *file_name, fdf *data)
 	i = 0;
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
-	// data->height = 11;
-	// data->width = 19;
 	printf("h: %d   w: %d\n", data->height, data->width);
-	// data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
-	// while (i <= data->height)
-	// 	data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
+	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
+	while (i <= data->height)
+		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
 	fd = open(file_name, 0, O_RDONLY);
-	// get_next_line(fd, &line);
-	// printf("gnl: %s\n", line);
 	line = NULL;
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		printf("line: %s\n", line);//////////
-		// fill_matrix(data->z_matrix[i], line, data->width);
+		// printf("line: %s\n", line);//////////
+		fill_matrix(data->z_matrix[i], line, data->width);
 		free(line);
 		i++;
 	}
 	close(fd);
-	// data->z_matrix[i] = NULL;
+	data->z_matrix[i] = NULL;
 }
