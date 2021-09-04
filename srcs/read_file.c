@@ -42,7 +42,6 @@ int	get_width(char *file_name)
 
 	fd = open(file_name, 0, O_RDONLY);
 	get_next_line(fd, &line);
-	// printf("get_width:  %s\n", line);
 	width = ft_wdcounter(' ', line);
 	free(line);
 	while (get_next_line(fd, &line))
@@ -85,7 +84,6 @@ void	read_file(char *file_name, t_fdf *data)
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		// printf("line: %s\n", line);//////////
 		fill_matrix(data->z_matrix[i], line, data->width);
 		free(line);
 		i++;

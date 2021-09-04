@@ -25,7 +25,9 @@ int	main(int argc, char **argv)
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "FDF");
 	data->zoom = 10;
+	printf("(1) Here\n");
 	draw(data);
+	printf("(2) Here\n");
 	mlx_key_hook(data->win_ptr, deal_key, NULL);
 	mlx_loop(data->mlx_ptr);
 }

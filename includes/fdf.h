@@ -41,15 +41,15 @@ typedef struct	s_fdf
 
 void		read_file(char *file_name, t_fdf *data);
 void		two_dim_free(int **buf);
-void		bresenham(float x, float y, float x1, float y1, t_fdf *data);
+void		bresenham(t_point p, float x1, float y1, t_fdf *data);
 void		draw(t_fdf *data);
 int			get_max(int a, int b);
 void		set_color(t_fdf *data, int z);
 float		mod(float i);
-void		zoom(float *x, float *y, float *x1, float *y1, t_fdf *data);
+void		zoom(t_point *p, float *x1, float *y1, t_fdf *data);
 void		isometric2(float *x, float *y);
 void		replace_point(float *x, float *y, t_fdf *data);
-void		bresen_2nd(float x, float y, float x1, float y1, t_terminal *point, t_fdf *data);
+t_terminal	bresen_2nd(t_point p, float x1, float y1, t_fdf *data);
 t_terminal	get_terminal(t_fdf *data);
 
 #endif

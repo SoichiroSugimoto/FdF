@@ -6,7 +6,7 @@ void	isometric(float *x, float *y, float z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	bresenham(float x, float y, float x1, float y1, t_fdf *data)
+void	bresenham(t_point p, float x1, float y1, t_fdf *data)
 {
 	float	x_step;
 	float	y_step;
@@ -14,47 +14,44 @@ void	bresenham(float x, float y, float x1, float y1, t_fdf *data)
 	int		z;
 	int		z1;
 
-	z = data->z_matrix[(int)y][(int)x];
+	z = data->z_matrix[(int)p.y][(int)p.x];
 	z1 = data->z_matrix[(int)y1][(int)x1];
-	zoom(&x, &y, &x1, &y1, data);
+	zoom(&p, &x1, &y1, data);
 	set_color(data, z);
-	isometric(&x, &y, z);
+	isometric(&p.x, &p.y, z);
 	isometric(&x1, &y1, z1);
-	replace_point(&x, &y, data);
+	replace_point(&p.x, &p.y, data);
 	replace_point(&x1, &y1, data);
-	x_step = x1 - x;
-	y_step = y1 - y;
+	x_step = x1 - p.x;
+	y_step = y1 - p.y;
 	max = get_max(mod(x_step), mod(y_step));
 	x_step /= max;
 	y_step /= max;
-	while ((int)(x - x1) || (int)(y - y1))
+	while ((int)(p.x - x1) || (int)(p.y - y1))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
-		x += x_step;
-		y += y_step;
+		mlx_pixel_put(data->mlx_ptr, data->win_ptr, p.x, p.y, data->color);
+		p.x += x_step;
+		p.y += y_step;
 	}
 }
 
 void	draw(t_fdf *data)
 {
-	int		x;
-	int		y;
-	t_point	*p;
+	t_point	p;
 
-	y = 0;
-	get_terminal(data);
-	while (y < data->height)
+	p.y = 0;
+	while (p.y < data->height)
 	{
-		x = 0;
-		while (x < data->width)
+		p.x = 0;
+		while (p.x < data->width)
 		{
-			if (x < data->width - 1)
-				bresenham(x, y, x + 1, y, data);
-			if (y < data->height - 1)
-				bresenham(x, y, x, y + 1, data);
-			x++;
+			printf("p->x: %f\n", p.x);
+			if (p.x < data->width - 1)
+				bresenham(p, p.x + 1, p.y, data);
+			if (p.y < data->height - 1)
+				bresenham(p, p.x, p.y + 1, data);
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
-	printf("(x, y) = (%d, %d)\n", x, y);
 }

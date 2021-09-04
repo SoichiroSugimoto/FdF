@@ -23,10 +23,10 @@ float	mod(float i)
 	return (i);
 }
 
-void	zoom(float *x, float *y, float *x1, float *y1, t_fdf *data)
+void	zoom(t_point *p, float *x1, float *y1, t_fdf *data)
 {
-	*x *= data->zoom;
-	*y *= data->zoom;
+	p->x *= data->zoom;
+	p->y *= data->zoom;
 	*x1 *= data->zoom;
 	*y1 *= data->zoom;
 }
