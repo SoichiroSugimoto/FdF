@@ -75,19 +75,16 @@ void	read_file(char *file_name, t_fdf *data)
 	i = 0;
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
-	printf("h: %d   w: %d\n", data->height, data->width);
-	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
-	while (i <= data->height)
-		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
+	data->coords = (t_coord **)malloc(sizeof(t_coord *) * data->height);
+	malloc_error(data->coords);
 	fd = open(file_name, 0, O_RDONLY);
 	line = NULL;
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line, data->width);
+		data->coords[i] = deal_args(line);
 		free(line);
 		i++;
 	}
 	close(fd);
-	data->z_matrix[i] = NULL;
 }

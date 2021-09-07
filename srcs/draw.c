@@ -45,7 +45,6 @@ void	draw(t_fdf *data)
 		p.x = 0;
 		while (p.x < data->width)
 		{
-			printf("p->x: %f\n", p.x);
 			if (p.x < data->width - 1)
 				bresenham(p, p.x + 1, p.y, data);
 			if (p.y < data->height - 1)

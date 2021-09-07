@@ -13,21 +13,39 @@ int	get_zoom(t_fdf *data)
 	return (i);
 }
 
+void	print_all(t_coord *lst)
+{
+	int	n;
+
+	n = 1;
+	while (lst->next != NULL)
+	{
+		// printf("[%d]  ", n);
+		printf("z : %d  /  ", lst->z);
+		// printf("color : %x  /  ", lst->color);
+		// printf("next : %p\n", lst->next);
+		lst = lst->next;
+		n++;
+	}
+	printf("[%d]  ", n);
+	printf("z : %d  /  ", lst->z);
+	printf("color : %x  /  ", lst->color);
+	printf("next : %p\n", lst->next);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	*data;
 	int		i;
 	int		j;
 
-	i = 0;
 	data = (t_fdf *)malloc(sizeof(t_fdf));
 	read_file(argv[1], data);
-	data->mlx_ptr = mlx_init();
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "FDF");
-	data->zoom = 10;
-	printf("(1) Here\n");
-	draw(data);
-	printf("(2) Here\n");
-	mlx_key_hook(data->win_ptr, deal_key, NULL);
-	mlx_loop(data->mlx_ptr);
+
+	// data->mlx_ptr = mlx_init();
+	// data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, "FDF");
+	// data->zoom = 10;
+	// draw(data);
+	// mlx_key_hook(data->win_ptr, deal_key, NULL);
+	// mlx_loop(data->mlx_ptr);
 }

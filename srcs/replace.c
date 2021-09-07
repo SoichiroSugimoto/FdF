@@ -46,9 +46,7 @@ void	replace_point(float *x, float *y, t_fdf *data)
 {
 	t_terminal	point;
 
-	printf("(1)(3)\n");
 	point = get_terminal(data);
-	printf("terminal: (%d, %d)\n", point.x, point.y);
 	*x += WIDTH / 2 - point.x / 2;
 	*y += (HEIGHT - point.y) / 2;
 }
