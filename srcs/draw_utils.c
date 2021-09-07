@@ -8,14 +8,6 @@ int	get_max(int a, int b)
 		return (a);
 }
 
-void	set_color(t_fdf *data, int z)
-{
-	if (z)
-		data->color = 0xe80c0c;
-	else
-		data->color = 0xffffff;
-}
-
 float	mod(float i)
 {
 	if (i < 0)

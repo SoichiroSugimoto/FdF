@@ -22,6 +22,7 @@
 
 # define WHITE 0xffffff
 # define RED 0xe80c0c
+# define C_YELLOW 0xffffe0
 
 typedef struct s_coord
 {
@@ -81,12 +82,12 @@ void		ft_lstadd_back(t_coord **lst, t_coord *new);
 void		two_dim_free(int **buf);
 
 // ---------------------------draw.c
+void		set_color(t_fdf *data, int z, int color_code);
 void		bresenham(t_point p, float x1, float y1, t_fdf *data);
 void		draw(t_fdf *data);
 
 // ---------------------------draw_utils.c
 int			get_max(int a, int b);
-void		set_color(t_fdf *data, int z);
 float		mod(float i);
 void		zoom(t_point *p, float *x1, float *y1, t_fdf *data);
 
