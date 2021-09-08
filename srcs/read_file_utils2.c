@@ -1,5 +1,20 @@
 #include "../includes/fdf.h"
 
+int	filename_check(char *filename)
+{
+	int	i;
+
+	i = 1;
+	if (filename[0] == '.')
+		return (FAULT);
+	while (filename[i] != '.')
+		i++;
+	i++;
+	if (filename[i] == 'f' && filename[i + 1] == 'd' && filename[i + 2] == 'f')
+		return (TRUE);
+	return (FAULT);
+}
+
 int	check_num(char *str)
 {
 	int	i;
@@ -45,10 +60,10 @@ int	check_hex(char *str)
 		if (!(('0' <= str[i] && str[i] <= '9') ||
 				('A' <= str[i] && str[i] <= 'F') ||
 				('a' <= str[i] && str[i] <= 'f')))
-			map_arg_error(ERR_MAP_COLOR);
+			error_message(ERR_MAP_COLOR);
 		n++;
 		if (n > 6)
-			map_arg_error(ERR_MAP_COLOR);
+			error_message(ERR_MAP_COLOR);
 		i++;
 	}
 	return (TRUE);
@@ -57,7 +72,7 @@ int	check_hex(char *str)
 void	check_args(char *str)
 {
 	if (check_num(str) == FAULT)
-		map_arg_error(ERR_MAP_NUM);
+		error_message(ERR_MAP_NUM);
 	if (check_color_exist(str) != FAULT && check_hex(str) == FAULT)
-		map_arg_error(ERR_MAP_COLOR);
+		error_message(ERR_MAP_COLOR);
 }

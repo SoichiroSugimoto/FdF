@@ -40,10 +40,9 @@ void	bresenham(t_point p, float x1, float y1, t_fdf *data)
 	int		z;
 	int		z1;
 
-	z = get_z_value((int)p.y, (int)p.x, data);
-	z1 = get_z_value((int)y1, (int)x1, data);
+	z = ALTITUDE * get_z_value((int)p.y, (int)p.x, data);
+	z1 = ALTITUDE * get_z_value((int)y1, (int)x1, data);
 	zoom(&p, &x1, &y1, data);
-	// set_color(data, z);
 	isometric(&p.x, &p.y, z);
 	isometric(&x1, &y1, z1);
 	replace_point(&p.x, &p.y, data);

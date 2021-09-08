@@ -24,6 +24,8 @@ int	get_height(char *file_name)
 	int		height;
 
 	fd = open(file_name, 0, O_RDONLY);
+	if (fd == -1)
+		error_message(ERR_FD);
 	height = 0;
 	while (get_next_line(fd, &line))
 	{
@@ -75,16 +77,18 @@ void	read_file(char *file_name, t_fdf *data)
 	i = 0;
 	data->height = get_height(file_name);
 	data->width = get_width(file_name);
-	data->coords = (t_coord **)malloc(sizeof(t_coord *) * data->height);
+	data->coords = (t_coord **)malloc(sizeof(t_coord *) * (data->height + 1));
 	malloc_error(data->coords);
 	fd = open(file_name, 0, O_RDONLY);
 	line = NULL;
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
+		wd_cnt_checker(data->width, ft_wdcounter(' ', line));
 		data->coords[i] = deal_args(line);
 		free(line);
 		i++;
 	}
+	data->coords[i] = NULL;
 	close(fd);
 }

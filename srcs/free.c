@@ -6,6 +6,28 @@ void	safe_free(char *buf)
 	buf = NULL;
 }
 
+void	all_free_lst(t_coord **coord)
+{
+	int		i;
+	int		j;
+	t_coord	*lst;
+
+	i = 0;
+	j = 0;
+	while (coord[i])
+	{
+		lst = coord[i];
+		while (lst->next != NULL)
+		{
+			free(lst);
+			lst = lst->next;
+		}
+		free(lst);
+		i++;
+	}
+	free(coord);
+}
+
 void	two_dim_free(int **buf)
 {
 	while (*buf)

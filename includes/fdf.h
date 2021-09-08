@@ -13,12 +13,19 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 700 * 3 / 2
-# define HEIGHT 700
+# define WIDTH 500
+# define HEIGHT 500 * 3 / 2
+# define ZOOM 15
+# define ALTITUDE 5
 
-# define ERR_MALLOC			"Malloc error: allocation is failed"
-# define ERR_MAP_NUM		"MAP error: included number is inappropriate"
-# define ERR_MAP_COLOR		"MAP error: included color code is inappropriate"
+# define ERR_NO_ARG			"ARGS error: the argument is empty\n"
+# define ERR_FILE_NAME		"FILE error: file name format is inappropriate\n"
+# define ERR_FD				"FD error: fail to get file descriptor\n"
+# define ERR_LARGER_WID		"Width error: the number of arguments is large\n"
+# define ERR_SMALLER_WID	"Width error: the number of arguments is small\n"
+# define ERR_MALLOC			"Malloc error: allocation is failed\n"
+# define ERR_MAP_NUM		"MAP error: input number is inappropriate\n"
+# define ERR_MAP_COLOR		"MAP error: innput color code is inappropriate\n"
 
 # define WHITE 0xffffff
 # define RED 0xe80c0c
@@ -41,7 +48,6 @@ typedef struct s_fdf
 {
 	int				width;
 	int				height;
-	int				**z_matrix;  //I'll delete
 	t_coord			**coords;
 	int				zoom;
 	int				color;
@@ -68,6 +74,7 @@ void		get_args(char *str, t_coord *coord);
 int			get_color(char *str);
 
 // ---------------------------read_file_utils2.c
+int			filename_check(char *filename);
 int			check_num(char *str);
 int			check_hex(char *str);
 int			check_color_exist(char *str);
@@ -98,7 +105,8 @@ t_terminal	bresen_2nd(t_point p, float x1, float y1, t_fdf *data);
 t_terminal	get_terminal(t_fdf *data);
 
 // ---------------------------error_deal.c
+void		error_message(char *message);
 void		malloc_error(void *buf);
-void		map_arg_error(char *message);
+void		wd_cnt_checker(int	width, int wd_cnt);
 
 #endif
