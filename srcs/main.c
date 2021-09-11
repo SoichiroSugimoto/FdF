@@ -4,18 +4,13 @@
 // int	mlx_destroy_window(void *mlx_ptr, void *win_ptr);
 // int	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 
-int	deal_key(int key, void *data)
+int	deal_key(int key)
 {
 	if (key == 53)
 		exit(0);
+	else
+		printf("-------------------------- key: %d\n", key);
 	return (0);
-}
-
-int	get_zoom(t_fdf *data)
-{
-	int	i;
-
-	return (i);
 }
 
 void	print_all(t_coord *lst)
@@ -41,8 +36,6 @@ void	print_all(t_coord *lst)
 int	main(int argc, char **argv)
 {
 	t_fdf	*data;
-	int		i;
-	int		j;
 
 	if (argc <= 1)
 		error_message(ERR_NO_ARG);

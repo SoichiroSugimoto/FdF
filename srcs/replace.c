@@ -8,10 +8,7 @@ void	isometric2(float *x, float *y)
 
 t_terminal	bresen_2nd(t_point p, float x1, float y1, t_fdf *data)
 {
-	float		x_step;
-	float		y_step;
 	t_terminal	point;
-	int			max;
 
 	zoom(&p, &x1, &y1, data);
 	isometric2(&x1, &y1);
