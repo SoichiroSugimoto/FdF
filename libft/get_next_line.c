@@ -20,10 +20,8 @@ int	find_newline_code(char *str)
 
 int	free_join(char **dst, char **src, int n)
 {
-	int		i;
 	char	*tmp;
 
-	i = 0;
 	if (!(*dst))
 		*dst = "";
 	if (!(*src))

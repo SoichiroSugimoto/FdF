@@ -1,8 +1,8 @@
 #ifndef FDF_H
 # define FDF_H
 
-# include "../mlx/mlx.h"
-# include "../libft/libft.h"
+# include "mlx.h"
+# include "libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>

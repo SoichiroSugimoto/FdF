@@ -9,11 +9,9 @@ void	safe_free(char *buf)
 void	all_free_lst(t_coord **coord)
 {
 	int		i;
-	int		j;
 	t_coord	*lst;
 
 	i = 0;
-	j = 0;
 	while (coord[i])
 	{
 		lst = coord[i];

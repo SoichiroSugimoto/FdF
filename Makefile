@@ -15,11 +15,11 @@ CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
 ifeq ($(shell uname), Darwin)
-	MLX_DIR		=	minilibx_macos/
+	MLX_DIR		=	mlx_macos/
 	MLX		=	$(MLX_DIR)libmlx.a
 	MLX_FLAGS		=	-framework OpenGL -framework AppKit
 else
-	MLX_DIR		=	minilibx-linux/
+	MLX_DIR		=	mlx_linux/
 	MLX		=	$(MLX_DIR)libmlx_Linux.a
 	MLX_FLAGS		=	-lXext -lX11 -lm
 endif
@@ -27,7 +27,7 @@ endif
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) srcs/*.c libft/*.c -o $(NAME) mlx/libmlx.a $(MLX_FLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS)
 
 $(LIBFT) :
 	make -C libft
