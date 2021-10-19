@@ -1,10 +1,25 @@
 NAME		= fdf
 
-SRCS		= ${shell find ./srcs/*.c}
+SRCS_DIR	= srcs/
 
-OBJS		= $(SRCS:.c=.o)
+SRCS		=	draw_utils.c \
+				draw.c \
+				error_deal.c \
+				free.c \
+				main.c \
+				read_file_utils.c \
+				read_file_utils2.c \
+				read_file_utils3.c \
+				read_file.c \
+				replace.c
 
-HEADER		= ${shell find ./include/*.h}
+OBJ_FILES	= $(SRCS:.c=.o)
+
+OBJ_DIR		= objs/
+
+OBJS		= $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+
+HEADER		= ./includes/fdf.h
 
 MLX_HEADER	= ./mlx/mlx.h
 
@@ -13,6 +28,9 @@ LIBFT		= ./libft/libft.a
 CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
+
+HEADERS		=	includes/ $(MLX_DIR)/ libft/includes
+INCLUDES	=	$(addprefix -I, $(HEADERS))
 
 ifeq ($(shell uname), Darwin)
 	MLX_DIR		=	mlx_macos/
@@ -33,20 +51,22 @@ $(LIBFT) :
 	make -C libft
 
 $(MLX) :
-	make -C mlx
+	make -C $(MLX_DIR)
 
-$(OBJS) :
-
+$(OBJ_DIR)%.o: $(SRCS_DIR)%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(INCLUDES) -c $< -o $@
 
 clean :
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 	make clean -C libft
-	make clean -C mlx
+	make clean -C $(MLX_DIR)
 
 fclean : clean
 	rm -f $(NAME)
+	rm -rf $(OBJ_DIR)
 	make fclean -C libft
-	make clean -C mlx
+	make clean -C $(MLX_DIR)
 
 re : fclean all
 

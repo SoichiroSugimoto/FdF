@@ -1,5 +1,4 @@
-#include "libft.h"
-#include <stdio.h>
+#include "includes/libft.h"
 
 int	all_error_free(char **s1, char **s2)
 {

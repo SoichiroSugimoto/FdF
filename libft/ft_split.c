@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "includes/libft.h"
 
 int	strbycnt(char const *s, char c)
 {
