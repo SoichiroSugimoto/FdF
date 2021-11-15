@@ -1,4 +1,16 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:40:32 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/10/29 14:58:18 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
 
 int	filename_check(char *filename)
 {
@@ -57,9 +69,9 @@ int	check_hex(char *str)
 	i += 2;
 	while (str[i])
 	{
-		if (!(('0' <= str[i] && str[i] <= '9') ||
-				('A' <= str[i] && str[i] <= 'F') ||
-				('a' <= str[i] && str[i] <= 'f')))
+		if (!(('0' <= str[i] && str[i] <= '9')
+				|| ('A' <= str[i] && str[i] <= 'F')
+				|| ('a' <= str[i] && str[i] <= 'f')))
 			error_message(ERR_MAP_COLOR);
 		n++;
 		if (n > 6)

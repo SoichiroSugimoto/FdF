@@ -1,4 +1,16 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:40:55 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/11/15 13:00:40 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
 
 int	ft_wdcounter(char c, char *str)
 {
@@ -85,7 +97,7 @@ void	read_file(char *file_name, t_fdf *data)
 	while (get_next_line(fd, &line))
 	{
 		wd_cnt_checker(data->width, ft_wdcounter(' ', line));
-		data->coords[i] = deal_args(line);
+		data->coords[i] = deal_args(line, data);
 		free(line);
 		i++;
 	}

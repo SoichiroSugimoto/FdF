@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:35:02 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/10/21 20:14:04 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/libft.h"
 
 int	strbycnt(char const *s, char c)
@@ -34,25 +46,42 @@ char	**ft_all_free(char **p)
 	return (NULL);
 }
 
+int	cnt_by_not_c(const char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == c)
+		i++;
+	return (i);
+}
+
+int	cnt_by_c(const char *str, char c, int len)
+{
+	while (str[len] && str[len] != c)
+		len++;
+	return (len);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**p;
 	int		i;
 	int		len;
 
-	if (!s || !(p = (char **)malloc(sizeof(char *) * (strbycnt(s, c) + 1))))
+	p = (char **)malloc(sizeof(char *) * (strbycnt(s, c) + 1));
+	if (!s || !p)
 		return (NULL);
 	i = 0;
 	while (*s)
 	{
 		len = 0;
-		while (*s == c)
-			s++;
-		while (s[len] && s[len] != c)
-			len++;
+		s += cnt_by_not_c(s, c);
+		len += cnt_by_c(s, c, len);
 		if (*s)
 		{
-			if (!(p[i] = (char *)malloc(sizeof(char) * (len + 1))))
+			p[i] = (char *)malloc(sizeof(char) * (len + 1));
+			if (!p)
 				return (ft_all_free(p));
 			ft_strlcpy(p[i], s, len + 1);
 			s += len;

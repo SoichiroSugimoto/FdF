@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/19 13:36:12 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/11/15 15:09:00 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -13,10 +25,8 @@
 # include <stdio.h>
 # include <math.h>
 
-# define WIDTH 500
-# define HEIGHT 500 * 3 / 2
-# define ZOOM 15
-# define ALTITUDE 5
+# define WIDTH 1200
+# define HEIGHT 800
 
 # define ERR_NO_ARG			"ARGS error: the argument is empty\n"
 # define ERR_FILE_NAME		"FILE error: file name format is inappropriate\n"
@@ -27,9 +37,19 @@
 # define ERR_MAP_NUM		"MAP error: input number is inappropriate\n"
 # define ERR_MAP_COLOR		"MAP error: innput color code is inappropriate\n"
 
+# define TRUE 1
+# define FALSE 0
+
 # define WHITE 0xffffff
 # define RED 0xe80c0c
 # define C_YELLOW 0xffffe0
+
+# define ZOOMIN 34
+# define ZOOMOUT 31
+# define MOVEUP 18
+# define MOVEDOWN 19
+# define MOVERIGHT 20
+# define MOVELEFT 21
 
 typedef struct s_coord
 {
@@ -44,22 +64,40 @@ typedef struct s_point
 	float			y;
 }				t_point;
 
-typedef struct s_fdf
+typedef struct s_step
 {
-	int				width;
-	int				height;
-	t_coord			**coords;
-	int				zoom;
-	int				color;
-	void			*mlx_ptr;
-	void			*win_ptr;
-}				t_fdf;
+	float			x_step;
+	float			y_step;
+}				t_step;
 
 typedef struct s_terminal
 {
 	int				x;
 	int				y;
 }				t_terminal;
+
+typedef struct s_fdf
+{
+	int				width;
+	int				height;
+	int				altitude;
+	int				z_max;
+	t_coord			**coords;
+	int				zoom;
+	int				color;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	char			*file_name;
+	t_terminal		terminal;
+}				t_fdf;
+
+// ---------------------------init.c
+void		init_struct(t_fdf *data);
 
 // ---------------------------read_file.c
 void		read_file(char *file_name, t_fdf *data);
@@ -69,8 +107,8 @@ int			ft_wdcounter(char c, char *str);
 // ---------------------------read_file_utils.c
 int			convert_char(char c);
 long long	ft_atoi_hex(const char *str);
-t_coord		*deal_args(char *str);
-void		get_args(char *str, t_coord *coord);
+t_coord		*deal_args(char *str, t_fdf *data);
+void		get_args(char *str, t_coord *coord, t_fdf *data);
 int			get_color(char *str);
 
 // ---------------------------read_file_utils2.c
@@ -81,6 +119,8 @@ int			check_color_exist(char *str);
 void		check_args(char *str);
 
 // ---------------------------read_file_utils3.c
+int			get_abs(int num);
+void		get_z_max(int num, t_fdf *data);
 char		*ft_strdup_till(const char *s1, char c);
 void		init_lst(t_coord *lst);
 void		ft_lstadd_back(t_coord **lst, t_coord *new);
@@ -89,7 +129,6 @@ void		ft_lstadd_back(t_coord **lst, t_coord *new);
 void		two_dim_free(int **buf);
 
 // ---------------------------draw.c
-void		set_color(t_fdf *data, int z, int color_code);
 void		bresenham(t_point p, float x1, float y1, t_fdf *data);
 void		draw(t_fdf *data);
 
@@ -97,6 +136,8 @@ void		draw(t_fdf *data);
 int			get_max(int a, int b);
 float		mod(float i);
 void		zoom(t_point *p, float *x1, float *y1, t_fdf *data);
+void		isometric(float *x, float *y, float z);
+void		set_color(t_fdf *data, int z, int color_code);
 
 // ---------------------------replace.c
 void		isometric2(float *x, float *y);

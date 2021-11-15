@@ -6,6 +6,7 @@ SRCS		=	draw_utils.c \
 				draw.c \
 				error_deal.c \
 				free.c \
+				init.c \
 				main.c \
 				read_file_utils.c \
 				read_file_utils2.c \
@@ -34,18 +35,18 @@ INCLUDES	=	$(addprefix -I, $(HEADERS))
 
 ifeq ($(shell uname), Darwin)
 	MLX_DIR		=	mlx_macos/
-	MLX		=	$(MLX_DIR)libmlx.a
-	MLX_FLAGS		=	-framework OpenGL -framework AppKit
+	MLX			=	$(MLX_DIR)libmlx.a
+	MLX_FLAGS	=	-framework OpenGL -framework AppKit
 else
 	MLX_DIR		=	mlx_linux/
-	MLX		=	$(MLX_DIR)libmlx_Linux.a
-	MLX_FLAGS		=	-lXext -lX11 -lm
+	MLX			=	$(MLX_DIR)libmlx_Linux.a
+	MLX_FLAGS	=	-lXext -lX11 -lm
 endif
 
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS) $(INCLUDES)
 
 $(LIBFT) :
 	make -C libft

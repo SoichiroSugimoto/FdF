@@ -1,4 +1,16 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:40:23 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/11/15 13:38:37 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
 
 int	convert_char(char c)
 {
@@ -39,7 +51,7 @@ long long	ft_atoi_hex(const char *str)
 	return (res * sign);
 }
 
-void	get_args(char *str, t_coord *coord)
+void	get_args(char *str, t_coord *coord, t_fdf *data)
 {
 	char	*num;
 
@@ -49,6 +61,7 @@ void	get_args(char *str, t_coord *coord)
 	{
 		num = ft_strdup_till(str, ',');
 		coord->z = ft_atoi(num);
+		get_z_max(coord->z, data);
 		free(num);
 		while (*str)
 		{
@@ -58,7 +71,10 @@ void	get_args(char *str, t_coord *coord)
 		}
 	}
 	else
+	{
 		coord->z = ft_atoi(str);
+		get_z_max(coord->z, data);
+	}
 }
 
 int	get_color(char *str)
@@ -70,7 +86,7 @@ int	get_color(char *str)
 	return (res);
 }
 
-t_coord	*deal_args(char *str)
+t_coord	*deal_args(char *str, t_fdf *data)
 {
 	char	**nums;
 	int		i;
@@ -87,7 +103,7 @@ t_coord	*deal_args(char *str)
 		new = (t_coord *)malloc(sizeof(t_coord));
 		malloc_error(new);
 		init_lst(new);
-		get_args(nums[i], new);
+		get_args(nums[i], new, data);
 		free(nums[i]);
 		ft_lstadd_back(&coord, new);
 		i++;

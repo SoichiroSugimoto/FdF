@@ -1,19 +1,28 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:38:46 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/11/15 15:12:07 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	isometric(float *x, float *y, float z)
-{
-	*x = (*x - *y) * cos(0.8);
-	*y = (*x + *y) * sin(0.8) - z;
-}
+#include "fdf.h"
 
-void	set_color(t_fdf *data, int z, int color_code)
+void	my_mlx_pixel_put(t_fdf *data, int x, int y, int color)
 {
-	if (color_code == 0 && !z)
-		data->color = C_YELLOW;
-	else if (color_code == 0 && z)
-		data->color = RED;
-	else
-		data->color = color_code;
+	int		i;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		i = y * data->line_length + x * data->bits_per_pixel / 8;
+		data->addr[i] = color;
+		data->addr[++i] = color >> 8;
+		data->addr[++i] = color >> 16;
+	}
 }
 
 int	get_z_value(int	x, int y, t_fdf *data)
@@ -32,32 +41,43 @@ int	get_z_value(int	x, int y, t_fdf *data)
 	return (lst->z);
 }
 
+t_step	get_step(t_point p, float x1, float y1)
+{
+	t_step	step;
+	int		max;
+
+	step.x_step = 0;
+	step.y_step = 0;
+	step.x_step = x1 - p.x;
+	step.y_step = y1 - p.y;
+	max = get_max(mod(step.x_step), mod(step.y_step));
+	step.x_step /= max;
+	step.y_step /= max;
+	return (step);
+}
+
 void	bresenham(t_point p, float x1, float y1, t_fdf *data)
 {
-	float	x_step;
-	float	y_step;
-	int		max;
+	t_step	step;
 	int		z;
 	int		z1;
 
-	z = ALTITUDE * get_z_value((int)p.y, (int)p.x, data);
-	z1 = ALTITUDE * get_z_value((int)y1, (int)x1, data);
+	z = data -> zoom * data->altitude * get_z_value((int)p.y, (int)p.x, data);
+	z1 = data -> zoom * data->altitude * get_z_value((int)y1, (int)x1, data);
 	zoom(&p, &x1, &y1, data);
 	isometric(&p.x, &p.y, z);
 	isometric(&x1, &y1, z1);
 	replace_point(&p.x, &p.y, data);
 	replace_point(&x1, &y1, data);
-	x_step = x1 - p.x;
-	y_step = y1 - p.y;
-	max = get_max(mod(x_step), mod(y_step));
-	x_step /= max;
-	y_step /= max;
+	step = get_step(p, x1, y1);
 	while ((int)(p.x - x1) || (int)(p.y - y1))
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, p.x, p.y, data->color);
-		p.x += x_step;
-		p.y += y_step;
+		my_mlx_pixel_put(data, p.x, p.y, data->color);
+		p.x += step.x_step;
+		p.y += step.y_step;
 	}
+	if (!((int)(p.x - x1) || (int)(p.y - y1)))
+		my_mlx_pixel_put(data, p.x, p.y, data->color);
 }
 
 void	draw(t_fdf *data)

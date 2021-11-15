@@ -1,4 +1,16 @@
-#include "../includes/fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/21 19:41:01 by sosugimo          #+#    #+#             */
+/*   Updated: 2021/10/29 18:39:17 by sosugimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
 
 void	isometric2(float *x, float *y)
 {
@@ -43,7 +55,7 @@ void	replace_point(float *x, float *y, t_fdf *data)
 {
 	t_terminal	point;
 
-	point = get_terminal(data);
+	point = data->terminal;
 	*x += WIDTH / 2 - point.x / 2;
 	*y += (HEIGHT - point.y) / 2;
 }
