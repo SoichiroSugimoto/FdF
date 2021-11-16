@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:41 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/15 15:15:03 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:21:14 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,7 @@ int	deal_key(int key, t_fdf *data)
 {
 	if (key == 53)
 		exit(0);
-	printf("-------------------------- key: %d\n", key);
 	return (0);
-}
-
-void	print_all(t_coord *lst)
-{
-	int	n;
-
-	n = 1;
-	while (lst->next != NULL)
-	{
-		printf("z : %d  /  ", lst->z);
-		lst = lst->next;
-		n++;
-	}
-	printf("[%d]  ", n);
-	printf("z : %d  /  ", lst->z);
-	printf("color : %x  /  ", lst->color);
-	printf("next : %p\n", lst->next);
 }
 
 int	get_zoom(t_fdf *data)
@@ -49,7 +31,6 @@ int	get_zoom(t_fdf *data)
 	m = data->height;
 	if (data->width >= data->height)
 		m = data->width;
-	printf("n is %d !!!!!\n", n);
 	zoom = 20;
 	if (n >= 900)
 		zoom = 15;
@@ -80,8 +61,6 @@ int	main(int argc, char **argv)
 	malloc_error(data);
 	init_struct(data);
 	read_file(argv[1], data);
-	printf("z_max:  %d\n", data->z_max);
-	printf("height -> %d\n width -> %d\n", data->height, data->width);
 	data->file_name = argv[1];
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIDTH, HEIGHT, argv[1]);
@@ -90,7 +69,6 @@ int	main(int argc, char **argv)
 			&(data->line_length), &(data->endian));
 	data->zoom = get_zoom(data);
 	data->terminal = get_terminal(data);
-	printf("data->zoom -> %d\ndata->altitude -> %d\n", data->zoom, data->altitude);
 	draw(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	mlx_key_hook(data->win_ptr, deal_key, NULL);
