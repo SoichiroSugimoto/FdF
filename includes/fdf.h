@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:36:12 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/15 15:09:00 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/17 02:58:34 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,22 @@ typedef struct s_terminal
 	int				y;
 }				t_terminal;
 
+typedef struct s_sides
+{
+	int				x_min;
+	int				y_min;
+	int				x_max;
+	int				y_max;
+	int				x_center;
+	int				y_center;
+}				t_sides;
+
 typedef struct s_fdf
 {
 	int				width;
 	int				height;
 	int				altitude;
 	int				z_max;
-	t_coord			**coords;
 	int				zoom;
 	int				color;
 	void			*mlx_ptr;
@@ -93,6 +102,8 @@ typedef struct s_fdf
 	int				line_length;
 	int				endian;
 	char			*file_name;
+	t_sides			*all_sides;
+	t_coord			**coords;
 	t_terminal		terminal;
 }				t_fdf;
 
@@ -139,10 +150,15 @@ void		zoom(t_point *p, float *x1, float *y1, t_fdf *data);
 void		isometric(float *x, float *y, float z);
 void		set_color(t_fdf *data, int z, int color_code);
 
+// ---------------------------draw_utils2.c
+int			get_zoom(t_fdf *data);
+void		get_image_center(t_fdf *data);
+
 // ---------------------------replace.c
 void		isometric2(float *x, float *y);
 void		replace_point(float *x, float *y, t_fdf *data);
 t_terminal	bresen_2nd(t_point p, float x1, float y1, t_fdf *data);
+void		get_all_sides(t_fdf *data, t_terminal point);
 t_terminal	get_terminal(t_fdf *data);
 
 // ---------------------------error_deal.c

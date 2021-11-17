@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:38:46 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/15 15:12:07 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:11:23 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	draw(t_fdf *data)
 {
 	t_point	p;
 
+	data->zoom = get_zoom(data);
+	data->terminal = get_terminal(data);
+	get_image_center(data);
 	p.y = 0;
 	while (p.y < data->height)
 	{

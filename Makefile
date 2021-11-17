@@ -3,6 +3,7 @@ NAME		= fdf
 SRCS_DIR	= srcs/
 
 SRCS		=	draw_utils.c \
+				draw_utils2.c \
 				draw.c \
 				error_deal.c \
 				free.c \

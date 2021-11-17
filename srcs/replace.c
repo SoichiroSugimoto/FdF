@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:41:01 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/10/29 18:39:17 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:39:34 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ t_terminal	bresen_2nd(t_point p, float x1, float y1, t_fdf *data)
 	return (point);
 }
 
+void	get_all_sides(t_fdf *data, t_terminal point)
+{
+	if (data->all_sides->x_min > (int)point.x)
+		data->all_sides->x_min = (int)point.x;
+	if (data->all_sides->y_min > (int)point.y)
+		data->all_sides->y_min = (int)point.y;
+	if (data->all_sides->x_max < (int)point.x)
+		data->all_sides->x_max = (int)point.x;
+	if (data->all_sides->y_max < (int)point.y)
+		data->all_sides->y_max = (int)point.y;
+}
+
 t_terminal	get_terminal(t_fdf *data)
 {
 	t_terminal	point;
@@ -44,6 +56,7 @@ t_terminal	get_terminal(t_fdf *data)
 				point = bresen_2nd(p, p.x + 1, p.y, data);
 			if (p.y < data->height - 1)
 				point = bresen_2nd(p, p.x, p.y + 1, data);
+			get_all_sides(data, point);
 			p.x++;
 		}
 		p.y++;
@@ -56,6 +69,6 @@ void	replace_point(float *x, float *y, t_fdf *data)
 	t_terminal	point;
 
 	point = data->terminal;
-	*x += WIDTH / 2 - point.x / 2;
-	*y += (HEIGHT - point.y) / 2;
+	*x += WIDTH / 2 - data->all_sides->x_center;
+	*y += HEIGHT / 2 - data->all_sides->y_center;
 }
