@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:41 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/17 12:42:09 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:32:35 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	test_draw(t_fdf *data, char *str);
 
 int	deal_key(int key, t_fdf *data)
 {
-	if (key == 53)
+	if (key == 53 || key == 65307)
 		exit(0);
 	return (0);
 }
