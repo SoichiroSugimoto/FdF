@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:41 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/18 18:03:39 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/19 22:54:30 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char **argv)
 
 	if (argc <= 1)
 		error_message(ERR_NO_ARG);
+	if (argc > 2)
+		error_message(ERR_MANY_ARG);
 	if (filename_check(argv[1]) == FAULT)
 		error_message(ERR_FILE_NAME);
 	data = (t_fdf *)malloc(sizeof(t_fdf));

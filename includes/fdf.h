@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:36:12 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/17 02:58:34 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:22:15 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define HEIGHT 800
 
 # define ERR_NO_ARG			"ARGS error: the argument is empty\n"
+# define ERR_MANY_ARG		"ARGS error: the argument is too many\n"
 # define ERR_FILE_NAME		"FILE error: file name format is inappropriate\n"
 # define ERR_FD				"FD error: fail to get file descriptor\n"
 # define ERR_LARGER_WID		"Width error: the number of arguments is large\n"
@@ -164,6 +165,7 @@ t_terminal	get_terminal(t_fdf *data);
 // ---------------------------error_deal.c
 void		error_message(char *message);
 void		malloc_error(void *buf);
-void		wd_cnt_checker(int	width, int wd_cnt);
+int			empty_checker(char *str);
+void		wd_cnt_checker(int	width, int wd_cnt, int n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:40:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/15 13:00:40 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:34:53 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ int	get_height(char *file_name)
 	height = 0;
 	while (get_next_line(fd, &line))
 	{
-		height++;
+		if (empty_checker(line))
+			height++;
 		free(line);
 	}
+	if (height > 0 && empty_checker(line) != 0)
+		height++;
 	close(fd);
 	return (height);
 }
@@ -93,13 +96,14 @@ void	read_file(char *file_name, t_fdf *data)
 	malloc_error(data->coords);
 	fd = open(file_name, 0, O_RDONLY);
 	line = NULL;
-	i = 0;
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) != -1)
 	{
-		wd_cnt_checker(data->width, ft_wdcounter(' ', line));
+		wd_cnt_checker(data->width, ft_wdcounter(' ', line), i);
 		data->coords[i] = deal_args(line, data);
 		free(line);
 		i++;
+		if (i == data->height)
+			break ;
 	}
 	data->coords[i] = NULL;
 	close(fd);
