@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 13:36:12 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/20 03:22:15 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:39:00 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,6 @@ t_terminal	get_terminal(t_fdf *data);
 void		error_message(char *message);
 void		malloc_error(void *buf);
 int			empty_checker(char *str);
-void		wd_cnt_checker(int	width, int wd_cnt, int n);
+void		wd_cnt_checker(int	width, int wd_cnt);
 
 #endif

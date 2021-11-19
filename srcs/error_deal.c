@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:09 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/20 03:32:39 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/20 03:39:11 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ void	malloc_error(void *buf)
 	}
 }
 
-// int	int_max_and_min_checker(char *num)
-// {
-// 	char	*max;
-// 	char	*min;
-
-// 	max = "2147483647";
-// 	min = "-2147483648";
-// }
-
 int	empty_checker(char *str)
 {
 	int	res;
@@ -50,14 +41,14 @@ int	empty_checker(char *str)
 	return (0);
 }
 
-void	wd_cnt_checker(int	width, int wd_cnt, int n)
+void	wd_cnt_checker(int	width, int wd_cnt)
 {
 	if (width < wd_cnt)
 	{
 		ft_putstr_fd(ERR_LARGER_WID, 1);
 		exit(0);
 	}
-	if (width > wd_cnt)/////////////
+	if (width > wd_cnt)
 	{
 		ft_putstr_fd(ERR_SMALLER_WID, 1);
 		exit(0);
