@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:40:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/20 03:39:53 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/27 15:21:23 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	get_width(char *file_name)
 	char	*line;
 
 	fd = open(file_name, 0, O_RDONLY);
+	if (fd == -1)
+		error_message(ERR_FD);
 	get_next_line(fd, &line);
 	width = ft_wdcounter(' ', line);
 	free(line);
@@ -95,6 +97,8 @@ void	read_file(char *file_name, t_fdf *data)
 	data->coords = (t_coord **)malloc(sizeof(t_coord *) * (data->height + 1));
 	malloc_error(data->coords);
 	fd = open(file_name, 0, O_RDONLY);
+	if (fd == -1)
+		error_message(ERR_FD);
 	line = NULL;
 	while (get_next_line(fd, &line) != -1)
 	{
