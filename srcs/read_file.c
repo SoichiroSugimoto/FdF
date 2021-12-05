@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:40:55 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/27 15:21:23 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/28 19:02:51 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	get_height(char *file_name)
 	}
 	if (height > 0 && empty_checker(line) != 0)
 		height++;
+	free(line);
 	close(fd);
 	return (height);
 }
@@ -65,6 +66,7 @@ int	get_width(char *file_name)
 	free(line);
 	while (get_next_line(fd, &line))
 		free(line);
+	free(line);
 	close(fd);
 	return (width);
 }

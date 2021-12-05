@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:09 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/20 03:39:11 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/28 18:50:31 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ void	malloc_error(void *buf)
 
 int	empty_checker(char *str)
 {
-	int	res;
-
-	res = 0;
 	while (*str)
 	{
 		if (22 <= *str && *str <= 126)

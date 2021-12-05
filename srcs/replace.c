@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:41:01 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/17 12:39:34 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/28 18:51:33 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ t_terminal	get_terminal(t_fdf *data)
 
 void	replace_point(float *x, float *y, t_fdf *data)
 {
-	t_terminal	point;
-
-	point = data->terminal;
 	*x += WIDTH / 2 - data->all_sides->x_center;
 	*y += HEIGHT / 2 - data->all_sides->y_center;
 }

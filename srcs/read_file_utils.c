@@ -6,7 +6,7 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:40:23 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/19 22:53:37 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/28 19:08:49 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ t_coord	*deal_args(char *str, t_fdf *data)
 		ft_lstadd_back(&coord, new);
 		i++;
 	}
+	free(nums);
 	return (coord);
 }

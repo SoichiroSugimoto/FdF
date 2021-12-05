@@ -31,7 +31,7 @@ CC			= gcc
 
 CFLAGS		= -Wall -Wextra -Werror
 
-HEADERS		=	includes/ $(MLX_DIR)/ libft/includes
+HEADERS		=	./includes/ $(MLX_DIR)/ libft/includes
 INCLUDES	=	$(addprefix -I, $(HEADERS))
 
 ifeq ($(shell uname), Darwin)
@@ -57,7 +57,7 @@ $(MLX) :
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.c
 	mkdir -p $(OBJ_DIR)
-	$(CC) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean :
 	rm -rf $(OBJ_DIR)

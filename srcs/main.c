@@ -6,13 +6,13 @@
 /*   By: sosugimo <sosugimo@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 19:39:41 by sosugimo          #+#    #+#             */
-/*   Updated: 2021/11/19 22:54:30 by sosugimo         ###   ########.fr       */
+/*   Updated: 2021/11/28 18:33:07 by sosugimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	deal_key(int key, t_fdf *data)
+int	deal_key(int key)
 {
 	if (key == 53 || key == 65307)
 		exit(0);
